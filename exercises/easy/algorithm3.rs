@@ -5,8 +5,17 @@
 */
 
 
-fn sort<T>(array: &mut [T]){
-	//TODO
+fn sort<T: PartialOrd>(array: &mut [T]){
+    if array.len() < 2 {
+		return;
+	}
+	for i in 1..array.len() {
+		for j in 0..array.len() - i {
+			if array[j] > array[j + 1] {
+				array.swap(j, j + 1);
+			}
+		}
+	}
 }
 #[cfg(test)]
 mod tests {
