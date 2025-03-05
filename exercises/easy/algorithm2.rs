@@ -6,7 +6,6 @@
 
 use std::fmt::{self, Display, Formatter};
 use std::ptr::NonNull;
-use std::vec::*;
 
 #[derive(Debug)]
 struct Node<T> {
@@ -73,7 +72,14 @@ impl<T> LinkedList<T> {
         }
     }
 	pub fn reverse(&mut self){
-		// TODO
+        let mut linked_list = LinkedList::<T>::new();
+        let mut node_i = self.end;
+        while let Some(ptr_i) = node_i {
+            let node = unsafe { Box::from_raw(ptr_i.as_ptr()) };
+            linked_list.add(node.val);
+            node_i = node.prev;
+        } 
+        *self = linked_list;
 	}
 }
 
